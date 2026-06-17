@@ -7,10 +7,10 @@ class Solution {
             int mid = left + (right - left) / 2;
 
             if(nums[mid] < target){
-                left++;
+                left = mid + 1;
             }
             else{
-                right--;
+                right = mid - 1;
             }
         }
         return left;
