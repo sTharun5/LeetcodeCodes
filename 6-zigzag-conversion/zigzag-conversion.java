@@ -1,24 +1,28 @@
 class Solution {
     public String convert(String s, int numRows) {
-        String ans = "";
-        if(numRows == 1)return s;
 
-        for(int i=0;i<numRows;i++){
-            int flag=1;
+        if(s.length()==1 || numRows==1)return s;
+        String ans = "";
+        int n = s.length();
+        for (int i = 0; i < numRows; i++) {
             int j = i;
-            while(j < s.length()){
+            int flag = 1;
+
+            while (j < n) {
                 ans = ans + s.charAt(j);
-                if(i == 0 || i == numRows-1){
-                    j = j + (numRows-1)*2;
+                // 4 
+                if (i == 0 || i == numRows - 1) {
+                    j = j + (numRows - 1) * 2;
+                } else if (flag % 2 == 1) {
+                    j = j + ((numRows - 1) * 2) - (2 * i);
+                } else {
+                    j = j + (2 * i);
                 }
-                else if(flag%2!=0){
-                    j = j +  (numRows-1)*2 - (2*i);
-                }
-                else{
-                    j = j+ (2*i);
-                }
-                flag++;
+                   flag = flag + 1;
             }
+         
+        
+
         }
         return ans;
     }
