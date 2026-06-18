@@ -1,24 +1,26 @@
 class Solution {
-    public List<List<Integer>> combinationSum(int[] nums, int target) {
-        List<List<Integer>> ans = new ArrayList<>();
-        func(nums,0,0,ans,new ArrayList<>(),target);
-        return ans;
-    }
+    List<List<Integer>> ans;
 
-    public void func(int nums[],int i,int currSum, List<List<Integer>> ans,List<Integer> curr,int target){
-        if(currSum > target)
-        return;
-        if(i == nums.length)
-        return;
-        if(currSum == target){
-            ans.add(new ArrayList<>(curr));
+    public void combo(int i,int[] nums, int target,List<Integer> temp){
+        if(target == 0){
+            ans.add(new ArrayList<>(temp));
             return;
         }
+        if(target < 0) return;
+        if(i >= nums.length)return;
 
-        for(int j = i; j < nums.length ; j++){
-            curr.add(nums[j]);
-            func(nums,j,currSum+nums[j],ans,curr,target);
-            curr.remove(Integer.valueOf(nums[j]));
+        for(int j=i;j<nums.length;j++){
+            temp.add(nums[j]);
+            combo(j,nums,target-nums[j],temp);
+            temp.remove(temp.size()-1);
         }
+    }
+    public List<List<Integer>> combinationSum(int[] nums, int target) {
+    
+    ans = new ArrayList<>();
+
+    combo(0,nums,target,new ArrayList<>());
+
+    return ans;
     }
 }
