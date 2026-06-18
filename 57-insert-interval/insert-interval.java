@@ -1,38 +1,37 @@
 class Solution {
     public int[][] insert(int[][] intervals, int[] newInterval) {
-        List<int[]> ans = new ArrayList<>();
+        ArrayList<int[]> store = new ArrayList<>();
+        int i = 0;
 
-        int i=0;
-
+        //add before overlapping
         while(i < intervals.length && intervals[i][1] < newInterval[0]){
-            ans.add(intervals[i]);
-            i++;
-        }   
-
-        while(i < intervals.length && intervals[i][0] <=  newInterval[1]){
-            newInterval[0] = Math.min(intervals[i][0],newInterval[0]);
-           newInterval[1] = Math.max(intervals[i][1],newInterval[1]);
-           
+            store.add(intervals[i]);
             i++;
         }
 
-         ans.add(newInterval);
+        // overlapping
 
-         while(i < intervals.length){
-            ans.add(intervals[i]);
+        while(i < intervals.length && intervals[i][0]  <= newInterval[1]){
+            newInterval[0] = Math.min(intervals[i][0],newInterval[0]);
+            newInterval[1] = Math.max(intervals[i][1],newInterval[1]);
             i++;
-         }
+        }
+            store.add(newInterval);
 
+            while(i < intervals.length){
+                   store.add(intervals[i]);
+                   i++;
+            }
         
 
-       
+        int ans[][] = new int[store.size()][2];
 
-        int [][] t = new int[ans.size()][2];
-         for(int j=0;j<ans.size();j++){
-            t[j][0] = ans.get(j)[0];
-            t[j][1] = ans.get(j)[1];
+        for( i=0;i<store.size();i++){
+            ans[i][0] =store.get(i)[0];
+            ans[i][1] = store.get(i)[1];
         }
 
-        return t;
+        return ans;
+
     }
 }
