@@ -1,27 +1,35 @@
 class Solution {
     public boolean isIsomorphic(String s, String t) {
-        char arr[] = new char[200];
-         char arr2[] = new char[200];
-        for(int i=0;i<t.length();i++)
-        {
-            if(arr[s.charAt(i)] == '\u0000')
-            arr[s.charAt(i)] = t.charAt(i);
-            else
-            {
-                if( arr[s.charAt(i)] != t.charAt(i))
+        if(s.length() != t.length())
+        return false;
+
+        HashMap<Character,Character> map1 = new HashMap<>();
+
+        for(int i=0;i<s.length();i++){
+            if(map1.containsKey(s.charAt(i))){
+                if(map1.get(s.charAt(i)) != t.charAt(i))
                 return false;
             }
-
-             if(arr2[t.charAt(i)] == '\u0000')
-            arr2[t.charAt(i)] = s.charAt(i);
-            else
-            {
-                if( arr2[t.charAt(i)] != s.charAt(i))
-                return false;
+            else{
+                map1.put(s.charAt(i),t.charAt(i));
             }
         }
 
+        map1.clear();
+
+        for(int i=0;i<s.length();i++){
+            if(map1.containsKey(t.charAt(i))){
+                if(map1.get(t.charAt(i)) != s.charAt(i))
+                return false;
+            }
+            else{
+                map1.put(t.charAt(i),s.charAt(i));
+            }
+        }
 
         return true;
+
+
+
     }
 }
