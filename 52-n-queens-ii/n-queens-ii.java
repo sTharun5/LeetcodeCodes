@@ -8,8 +8,9 @@ class Solution {
             Arrays.fill(row,'.');
         }
        
-        func(board,ans,0,n);
-        return ans.size();
+        int x = func(board,ans,0,n);
+    
+        return x;
     }
 
     public boolean isValid(char [][]board,int row,int col){
@@ -68,25 +69,21 @@ class Solution {
 
     }
 
-    public void func(char[][] board,List<List<String>> ans,int row,int n){
+    public int func(char[][] board,List<List<String>> ans,int row,int n){
         if(row == n){
-            
-            List<String> temp = new ArrayList<>();
-            for( char Row[] : board){
-                temp.add(new String(Row));
-            }
-            ans.add(new ArrayList<>(temp));
-            return;
+            return 1;
         }
-
+    int cnt = 0;
         for(int col = 0; col < n ; col++){
             if(isValid(board,row,col)){
            
                 board[row][col] = 'Q';
-                func(board,ans,row+1,n);
+                cnt = cnt + func(board,ans,row+1,n);
                 board[row][col] = '.';
             }
         }
+
+        return cnt;
         
     }
 }
