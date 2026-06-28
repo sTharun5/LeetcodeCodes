@@ -1,25 +1,50 @@
 class Solution {
     public int[][] merge(int[][] intervals) {
-        Arrays.sort(intervals, (a,b) -> a[0]-b[0]);
-        int current[] = intervals[0];
-        ArrayList<int[]> store = new ArrayList<>();
+        Arrays.sort(intervals,((a,b) ->  a[0]-b[0]));
+        List<int []> temp = new ArrayList<>();
 
-        for(int i=0;i<intervals.length;i++){
-            if(current[1] >= intervals[i][0]){
-                current[1] = Math.max(intervals[i][1],current[1]);
+        
+       
+        int []curr = new int[2];
+        curr[0] = intervals[0][0];
+        curr[1] = intervals[0][1];
+
+        int k = 0;
+        int flag = 0;
+
+        for(int i=1;i<intervals.length;i++){
+            flag=0;
+            if(curr[1] >= intervals[i][0]){
+                flag =1;
+                curr[1] = Math.max(curr[1],intervals[i][1]);
+                 k=i;
             }
             else{
-                store.add(current);
-                current = intervals[i];
+                temp.add(curr);
+                curr = new int[2];
+                curr[0] = intervals[i][0];
+                curr[1] = intervals[i][1];
+                k=i;
             }
+           
         }
-        store.add(current);
-        int ans[][] = new int[store.size()][2];
-        for(int i=0;i<store.size();i++){
-            ans[i][0] = store.get(i)[0];
-            ans[i][1] = store.get(i)[1];
+
+        if(flag==1 && k == intervals.length-1){
+            temp.add(curr);
+            k++;
         }
+       
+        for(int t=k;t<intervals.length;t++){
+            temp.add(intervals[t]);
+        }
+
+        int [][] ans = new int[temp.size()][2];
+
+        k = 0;
+        for(int h[] : temp){
+            ans[k++] = h;
+        }
+
         return ans;
-        
     }
 }
