@@ -40,7 +40,6 @@ class Solution {
 
             int num1 = Integer.parseInt(n1);
             int num2 = Integer.parseInt(n2);
-            System.out.println(n1 + " " + n2);
 
             if(num1 < num2) return -1;
             if(num1 > num2) return 1;
